@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ұлыстың ұлы күні – әз Наурыз</title>
+    <style>
+        /* ================= COLOR PALETTE & VARIABLES ================= */
+        :root {
+            --pastel-green: #A8E6CF;
+            --sky-blue: #DCEDC1;
+            --beige: #FFF3E0;
+            --gold: #FFD54F;
+            --light-pink: #FFD3B6;
+            --dark-text: #3E2723;
+            --white: #FFFFFF;
+            --danger: #FF8A65;
+            --success: #81C784;
+            --border-radius: 20px;
+        }
+
+        /* ================= GLOBAL STYLES ================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none; /* Prevent text selection on interactive boards */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--beige);
+            color: var(--dark-text);
+            overflow: hidden; /* App-like feel */
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Background Pattern & Animations */
+        .bg-pattern {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(var(--gold) 2px, transparent 2px),
+                radial-gradient(var(--gold) 2px, transparent 2px);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            opacity: 0.1;
+            z-index: -2;
+        }
+
+        .sun {
+            position: absolute;
+            top: -20px; right: 5%;
+            font-size: 80px;
+            animation: rotateSun 20s linear infinite;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        @keyframes rotateSun {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ================= UTILITIES ================= */
+        .hidden { display: none !important; }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse { animation: pulse 1s infinite; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .pop { animation: pop 0.4s ease-out forwards; }
+        @keyframes pop {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        /* ================= HEADER & NAVIGATION ================= */
+        header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: var(--white);
+            border: 2px solid var(--gold);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--dark-text);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            background: var(--beige);
+        }
+        .nav-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* ================= APP CONTAINER ================= */
+        #app-content {
+            flex: 1;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ================= HOME SCREEN ================= */
+        #home-view {
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .title-container {
+            background: var(--white);
+            padding: 20px 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 4px solid var(--pastel-green);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .title-container::before, .title-container::after {
+            content: "🌷";
+            position: absolute;
+            font-size: 30px;
+            top: -15px;
+        }
+        .title-container::before { left: -15px; }
+        .title-container::after { right: -15px; }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--dark-text);
+            text-shadow: 2px 2px 0px var(--gold);
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .menu-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .menu-btn {
+            background: var(--white);
+            border: none;
+            width: 280px;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--dark-text);
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 6px solid;
+        }
+        .menu-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        .menu-btn:active { transform: translateY(2px); border-bottom-width: 2px; margin-top: 4px; }
+        
+        .menu-btn .icon { font-size: 3rem; }
+        
+        #btn-game1 { border-color: var(--pastel-green); background: linear-gradient(to bottom, #fff, #f0fdf4); }
+        #btn-game2 { border-color: var(--sky-blue); background: linear-gradient(to bottom, #fff, #f0f9ff); }
+        #btn-game3 { border-color: var(--gold); background: linear-gradient(to bottom, #fff, #fefce8); }
+        #btn-game4 { border-color: var(--light-pink); background: linear-gradient(to bottom, #fff, #fff1f2); }
+        #btn-game5 { border-color: #CE93D8; background: linear-gradient(to bottom, #fff, #faf5ff); }
+
+        /* ================= GAME PANELS COMMON ================= */
+        .game-panel {
+            width: 100%;
+            max-width: 1000px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 3px solid var(--white);
+            position: relative;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed var(--gold);
+            padding-bottom: 10px;
+        }
+        .game-title { font-size: 2rem; color: var(--dark-text); }
+        .game-score { font-size: 1.5rem; font-weight: bold; background: var(--gold); padding: 5px 15px; border-radius: 20px; }
+
+        .game-area {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* For absolute positioning of drag items */
+        }
+
+        .feedback-message {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .feedback-success { background: var(--success); }
+        .feedback-error { background: var(--danger); }
+        .show-feedback { opacity: 1; animation: pop 0.4s ease-out; }
+
+        /* End Screen overlay */
+        .end-screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 243, 224, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            border-radius: var(--border-radius);
+        }
+        .end-title { font-size: 3rem; margin-bottom: 20px; text-align: center; color: var(--success); }
+        .end-btn { font-size: 1.5rem; padding: 15px 40px; margin-top: 20px; }
+
+        /* ================= GAME 1 & 3: DRAG AND DROP ================= */
+        .drop-zone {
+            width: 250px;
+            height: 250px;
+            background: var(--white);
+            border: 8px dashed var(--pastel-green);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 8rem;
+            margin: 20px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .drop-zone.active {
+            transform: scale(1.1);
+            border-color: var(--success);
+            background: #e8f5e9;
+        }
+
+        #g3-items {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+            width: 100%;
+            justify-items: center;
+            padding-bottom: 20px;
+            margin-top: auto;
+        }
+
+        .items-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: auto;
+            min-height: 120px;
+            padding-bottom: 20px;
+        }
+
+        .drag-item {
+            width: 75px;
+            height: 75px;
+            background: var(--white);
+            border: 3px solid var(--beige);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.2rem;
+            cursor: grab;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            user-select: none;
+            touch-action: none; /* Crucial for custom touch drag */
+            position: relative;
+            z-index: 10;
+        }
+        .drag-item.dragging {
+            opacity: 0.8;
+            transform: scale(1.1);
+            z-index: 1000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .drag-item .item-label {
+            font-size: 0.7rem;
+            margin-top: 5px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1;
+        }
+
+        /* ================= GAME 2: QUIZ ================= */
+        .quiz-container {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+        .question-box {
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 3px solid var(--sky-blue);
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .option-btn {
+            background: var(--white);
+            border: 2px solid #ddd;
+            padding: 20px;
+            font-size: 1.3rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .option-btn:hover { background: var(--sky-blue); transform: scale(1.02); }
+        .option-btn.correct { background: var(--success); color: white; border-color: var(--success); }
+        .option-btn.wrong { background: var(--danger); color: white; border-color: var(--danger); }
+
+        /* ================= GAME 4: YURT ASSEMBLY ================= */
+        .yurt-build-area {
+            width: 400px;
+            height: 350px;
+            position: relative;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 20px;
+            border: 2px dashed #ccc;
+        }
+        .yurt-part-target {
+            position: absolute;
+            opacity: 0.3;
+            transition: all 0.5s;
+            filter: grayscale(100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+        }
+        .yurt-part-target.placed {
+            opacity: 1;
+            filter: grayscale(0%);
+            animation: pop 0.5s;
+        }
+        
+        /* Approximate positioning for Yurt pieces */
+        #target-kerege { bottom: 0; left: 50px; width: 300px; height: 120px; background: repeating-linear-gradient(45deg, transparent, transparent 10px, #8B4513 10px, #8B4513 15px), repeating-linear-gradient(-45deg, transparent, transparent 10px, #8B4513 10px, #8B4513 15px); border-radius: 10px 10px 0 0;}
+        #target-uyk { bottom: 120px; left: 50px; width: 300px; height: 150px; background: repeating-linear-gradient(90deg, transparent, transparent 15px, #CD853F 15px, #CD853F 20px); clip-path: polygon(50% 0%, 0% 100%, 100% 100%);}
+        #target-shanyrak { top: 50px; left: 150px; width: 100px; height: 30px; border: 10px solid #8B4513; border-radius: 50%; border-bottom-color: transparent;}
+        #target-tuyrlyk { bottom: 0; left: 40px; width: 320px; height: 280px; background: #F5DEB3; clip-path: polygon(50% 0%, 0% 40%, 0% 100%, 100% 100%, 100% 40%); z-index: 5; border: 2px solid #d2b48c;}
+        #target-esik { bottom: 0; left: 160px; width: 80px; height: 100px; background: #654321; z-index: 10; border: 4px solid #8B4513; border-bottom: none;}
+
+        .yurt-controls { text-align: center; }
+        .yurt-parts-tray { display: flex; gap: 15px; justify-content: center; margin-top: 20px;}
+        .yurt-part-btn {
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            border: 2px solid var(--gold);
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .yurt-part-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* ================= GAME 5: SHANYRAK WISHES ================= */
+        .shanyrak-center {
+            width: 300px; height: 300px;
+            border: 20px solid #8B4513;
+            border-radius: 50%;
+            position: relative;
+            margin: 20px auto;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.2);
+            background: radial-gradient(circle, var(--sky-blue) 0%, transparent 70%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 1s;
+        }
+        /* Create crossbars for shanyrak */
+        .shanyrak-center::before, .shanyrak-center::after {
+            content: ''; position: absolute; background: #8B4513;
+        }
+        .shanyrak-center::before { width: 100%; height: 10px; border-radius: 5px;}
+        .shanyrak-center::after { height: 100%; width: 10px; border-radius: 5px;}
+        .shanyrak-center .cross2 { position: absolute; width: 100%; height: 10px; background: #8B4513; transform: rotate(45deg); border-radius: 5px;}
+        .shanyrak-center .cross3 { position: absolute; width: 100%; height: 10px; background: #8B4513; transform: rotate(-45deg); border-radius: 5px;}
+
+        .wish-word {
+            position: absolute;
+            background: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: var(--success);
+            border: 2px solid var(--gold);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
+        }
+        .wish-word.show { opacity: 1; transform: scale(1); }
+
+        .wishes-tray { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 30px;}
+        .wish-btn {
+            background: var(--pink);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--dark-text);
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .wish-btn:hover { transform: scale(1.05); }
+
+        /* ================= CONFETTI ================= */
+        .confetti {
+            position: absolute;
+            width: 10px; height: 10px;
+            background-color: #f00;
+            z-index: 1000;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1rem; }
+            .menu-btn { width: 100%; max-width: 350px; flex-direction: row; justify-content: flex-start; padding: 15px; }
+            .menu-btn .icon { font-size: 2rem; }
+            .game-title { font-size: 1.4rem; }
+            .drop-zone { width: 120px; height: 120px; font-size: 4rem; margin: 10px; }
+            .drag-item { width: 55px; height: 55px; font-size: 1.5rem; }
+            .drag-item .item-label { font-size: 0.6rem; margin-top: 2px; }
+            
+            #g3-items {
+                gap: 3px;
+                grid-template-columns: repeat(10, 1fr);
+            }
+            #g3-items .drag-item {
+                width: 100%;
+                aspect-ratio: 1;
+                height: auto;
+                font-size: 1.2rem;
+                border-width: 1px;
+                border-radius: 6px;
+            }
+            #g3-items .drag-item .item-label {
+                font-size: 0.4rem;
+                margin-top: 1px;
+                word-break: break-all;
+            }
+
+            .options-grid { grid-template-columns: 1fr; }
+            .yurt-build-area { transform: scale(0.7); margin-bottom: -50px;}
+            .shanyrak-center { width: 200px; height: 200px; border-width: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-pattern"></div>
+    <div class="sun">☀️</div>
+
+    <header>
+        <button id="btn-home" class="nav-btn hidden" onclick="goHome()">🏠 Басты бет</button>
+        <button id="btn-sound" class="nav-btn" onclick="toggleSound()">🔊 Дыбыс</button>
+    </header>
+
+    <div id="app-content">
+
+        <!-- ================= HOME VIEW ================= -->
+        <section id="home-view" class="fade-in">
+            <div class="title-container">
+                <h1>Ұлыстың ұлы күні – әз Наурыз</h1>
+                <p class="subtitle">Қазақ халқының ұлттық мерекесіне арналған интерактивті ойындар жинағы</p>
+            </div>
+            
+            <div class="menu-grid">
+                <button class="menu-btn" id="btn-game1" onclick="startGame(1)">
+                    <span class="icon">🧺</span>
+                    <span>1. Наурыз қоржыны</span>
+                </button>
+                <button class="menu-btn" id="btn-game2" onclick="startGame(2)">
+                    <span class="icon">❓</span>
+                    <span>2. Алтыбақан викторинасы</span>
+                </button>
+                <button class="menu-btn" id="btn-game3" onclick="startGame(3)">
+                    <span class="icon">🍲</span>
+                    <span>3. Наурыз көжені жина</span>
+                </button>
+                <button class="menu-btn" id="btn-game4" onclick="startGame(4)">
+                    <span class="icon">⛺</span>
+                    <span>4. Киіз үйді құрастыр</span>
+                </button>
+                <button class="menu-btn" id="btn-game5" onclick="startGame(5)">
+                    <span class="icon">⭕</span>
+                    <span>5. Шаңыраққа тілек</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= GAME 1: KORZHYN ================= -->
+        <section id="game1-view" class="game-panel hidden">
+            <div class="game-header">
+                <h2 class="game-title">🧺 Наурыз қоржыны</h2>
+                <div class="game-score">Ұпай: <span id="g1-score">0</span></div>
+            </div>
+            <div class="game-area">
+                <div id="g1-feedback" class="feedback-message"></div>
+                <div class="drop-zone" id="g1-target">🧺</div>
+                <p style="text-align:center; color:#666; margin-bottom:10px;">Мерекеге қатысты заттарды қоржынға сүйреп апарыңыз немесе басыңыз.</p>
+                <div class="items-container" id="g1-items">
+                    <!-- Items generated by JS -->
+                </div>
+            </div>
+            <div id="g1-end" class="end-screen hidden">
+                <h2 class="end-title">Жарайсың! Сен Наурыз заттарын жақсы біледі екенсің!</h2>
+                <div style="font-size: 5rem; margin-bottom: 20px;">🎉🧺🎊</div>
+                <button class="nav-btn end-btn" onclick="initGame1()">🔄 Қайта бастау</button>
+            </div>
+        </section>
+
+        <!-- ================= GAME 2: QUIZ ================= -->
+        <section id="game2-view" class="game-panel hidden">
+            <div class="game-header">
+                <h2 class="game-title">❓ Алтыбақан викторинасы</h2>
+                <div>
+                    <span style="font-size: 1.2rem; margin-right: 15px;">Сұрақ: <span id="g2-progress">1/10</span></span>
+                    <span class="game-score">Ұпай: <span id="g2-score">0</span></span>
+                </div>
+            </div>
+            <div class="game-area">
+                <div class="quiz-container">
+                    <div id="g2-question" class="question-box">Сұрақ осында болады?</div>
+                    <div class="options-grid" id="g2-options">
+                        <!-- Options generated by JS -->
+                    </div>
+                </div>
+            </div>
+            <div id="g2-end" class="end-screen hidden">
+                <h2 id="g2-result-title" class="end-title">Нәтиже</h2>
+                <p id="g2-result-text" style="font-size: 2rem; margin-bottom: 20px;">Сен 100 ұпай жинадың!</p>
+                <div style="font-size: 5rem; margin-bottom: 20px;">🏆</div>
+                <button class="nav-btn end-btn" onclick="initGame2()">🔄 Қайта бастау</button>
+            </div>
+        </section>
+
+        <!-- ================= GAME 3: KOZHE ================= -->
+        <section id="game3-view" class="game-panel hidden">
+            <div class="game-header">
+                <h2 class="game-title">🍲 Наурыз көжені жина</h2>
+                <div class="game-score">Қосылды: <span id="g3-progress">0/7</span></div>
+            </div>
+            <div class="game-area">
+                <div id="g3-feedback" class="feedback-message"></div>
+                <div class="drop-zone" id="g3-target" style="border-radius: 20px; border-color: #555; background: #333; color: white;">🍲</div>
+                <p style="text-align:center; color:#666; margin-bottom:10px;">Дұрыс ингредиенттерді қазанға салыңыз.</p>
+                <div class="items-container" id="g3-items">
+                    <!-- Items generated by JS -->
+                </div>
+            </div>
+            <div id="g3-end" class="end-screen hidden">
+                <h2 class="end-title">Наурыз көже дайын! Дәмді болсын!</h2>
+                <div style="font-size: 5rem; margin-bottom: 20px;">🍲😋✨</div>
+                <button class="nav-btn end-btn" onclick="initGame3()">🔄 Қайта бастау</button>
+            </div>
+        </section>
+
+        <!-- ================= GAME 4: YURT ================= -->
+        <section id="game4-view" class="game-panel hidden">
+            <div class="game-header">
+                <h2 class="game-title">⛺ Киіз үйді құрастыр</h2>
+                <div class="game-score">Қадам: <span id="g4-progress">0/5</span></div>
+            </div>
+            <div class="game-area">
+                <div id="g4-feedback" class="feedback-message" style="top: -20px;"></div>
+                <div class="yurt-build-area">
+                    <div id="target-kerege" class="yurt-part-target hidden"></div>
+                    <div id="target-uyk" class="yurt-part-target hidden"></div>
+                    <div id="target-shanyrak" class="yurt-part-target hidden"></div>
+                    <div id="target-tuyrlyk" class="yurt-part-target hidden"></div>
+                    <div id="target-esik" class="yurt-part-target hidden"></div>
+                </div>
+                <div class="yurt-controls">
+                    <p style="font-size: 1.2rem; margin-bottom: 10px; color: #555;">Келесі бөлшекті таңдаңыз:</p>
+                    <div class="yurt-parts-tray" id="g4-tray">
+                        <button class="yurt-part-btn" onclick="buildYurt(0)">Кереге</button>
+                        <button class="yurt-part-btn" onclick="buildYurt(1)">Уық</button>
+                        <button class="yurt-part-btn" onclick="buildYurt(2)">Шаңырақ</button>
+                        <button class="yurt-part-btn" onclick="buildYurt(3)">Туырлық</button>
+                        <button class="yurt-part-btn" onclick="buildYurt(4)">Есік</button>
+                    </div>
+                </div>
+            </div>
+            <div id="g4-end" class="end-screen hidden">
+                <h2 class="end-title">Керемет! Сен киіз үйді дұрыс құрастырдың!</h2>
+                <div style="font-size: 5rem; margin-bottom: 20px;">🏞️⛺🌷</div>
+                <button class="nav-btn end-btn" onclick="initGame4()">🔄 Қайта бастау</button>
+            </div>
+        </section>
+
+        <!-- ================= GAME 5: SHANYRAK ================= -->
+        <section id="game5-view" class="game-panel hidden">
+            <div class="game-header">
+                <h2 class="game-title">⭕ Шаңыраққа тілек</h2>
+                <div class="game-score">Тілектер: <span id="g5-progress">0/8</span></div>
+            </div>
+            <div class="game-area">
+                <div class="shanyrak-center" id="g5-shanyrak">
+                    <div class="cross2"></div>
+                    <div class="cross3"></div>
+                    <!-- Words will be appended here -->
+                </div>
+                <p style="text-align:center; color:#666; margin-top: 20px;">Әр тілекті басып, шаңыраққа орналастыр</p>
+                <div class="wishes-tray" id="g5-tray">
+                    <!-- Buttons generated by JS -->
+                </div>
+            </div>
+            <div id="g5-end" class="end-screen hidden">
+                <h2 class="end-title" style="line-height: 1.5;">Наурыз құтты болсын!<br>Ақ мол болсын!<br>Береке мен бірлік орнасын!</h2>
+                <div style="font-size: 5rem; margin-bottom: 20px;">💖🕊️🌟</div>
+                <button class="nav-btn end-btn" onclick="initGame5()">🔄 Қайта бастау</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- AUDIO CONTEXT SCRIPT -->
+    <script>
+        // ================= GLOBAL STATE & UTILS =================
+        let soundEnabled = true;
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('btn-sound').innerHTML = soundEnabled ? '🔊 Дыбыс' : '🔇 Өшірулі';
+            if(soundEnabled) playSound('click');
+        }
+
+        // Simple synthesizer for offline sounds
+        function playSound(type) {
+            if (!soundEnabled) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            const now = audioCtx.currentTime;
+            
+            if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.1);
+                gainNode.gain.setValueAtTime(0.3, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now);
+                osc.stop(now + 0.1);
+            } else if (type === 'success') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.setValueAtTime(600, now + 0.1);
+                osc.frequency.setValueAtTime(800, now + 0.2);
+                gainNode.gain.setValueAtTime(0.3, now);
+                gainNode.gain.linearRampToValueAtTime(0, now + 0.4);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            } else if (type === 'error') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(200, now);
+                osc.frequency.linearRampToValueAtTime(150, now + 0.2);
+                gainNode.gain.setValueAtTime(0.2, now);
+                gainNode.gain.linearRampToValueAtTime(0, now + 0.2);
+                osc.start(now);
+                osc.stop(now + 0.2);
+            } else if (type === 'win') {
+                osc.type = 'sine';
+                [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.type = 'triangle';
+                    o.frequency.value = freq;
+                    o.connect(g);
+                    g.connect(audioCtx.destination);
+                    g.gain.setValueAtTime(0, now + i*0.1);
+                    g.gain.linearRampToValueAtTime(0.3, now + i*0.1 + 0.05);
+                    g.gain.linearRampToValueAtTime(0, now + i*0.1 + 0.3);
+                    o.start(now + i*0.1);
+                    o.stop(now + i*0.1 + 0.4);
+                });
+            }
+        }
+
+        function showView(viewId) {
+            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+            const view = document.getElementById(viewId);
+            view.classList.remove('hidden');
+            view.classList.add('fade-in');
+            
+            const btnHome = document.getElementById('btn-home');
+            if (viewId === 'home-view') {
+                btnHome.classList.add('hidden');
+            } else {
+                btnHome.classList.remove('hidden');
+            }
+        }
+
+        function goHome() {
+            playSound('click');
+            showView('home-view');
+        }
+
+        function startGame(num) {
+            playSound('click');
+            showView(`game${num}-view`);
+            if(num === 1) initGame1();
+            if(num === 2) initGame2();
+            if(num === 3) initGame3();
+            if(num === 4) initGame4();
+            if(num === 5) initGame5();
+        }
+
+        function showFeedback(elementId, message, isSuccess) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.className = 'feedback-message show-feedback ' + (isSuccess ? 'feedback-success' : 'feedback-error');
+            setTimeout(() => {
+                el.className = 'feedback-message';
+            }, 1500);
+        }
+
+        function triggerConfetti() {
+            const colors = ['#A8E6CF', '#DCEDC1', '#FFD54F', '#FFD3B6', '#ff9999'];
+            for (let i = 0; i < 50; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                conf.style.opacity = Math.random();
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 4000);
+            }
+        }
+
+        // ================= UNIVERSAL DRAG/CLICK HANDLER =================
+        let activeDragItem = null;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+        let dragTargetId = '';
+        let dragContainerId = '';
+        let dragCallback = null;
+        let isDragging = false;
+
+        document.addEventListener('mousemove', onGlobalMove, {passive: false});
+        document.addEventListener('touchmove', onGlobalMove, {passive: false});
+        document.addEventListener('mouseup', onGlobalEnd);
+        document.addEventListener('touchend', onGlobalEnd);
+
+        function startItemDrag(e, item, targetId, containerId, callback) {
+            if (e.type === 'mousedown' && e.button !== 0) return; // Only left click
+            activeDragItem = item;
+            dragTargetId = targetId;
+            dragContainerId = containerId;
+            dragCallback = callback;
+            isDragging = false;
+            
+            const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+            const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+            
+            const rect = item.getBoundingClientRect();
+            dragOffsetX = clientX - rect.left;
+            dragOffsetY = clientY - rect.top;
+            
+            item.classList.add('dragging');
+            item.style.position = 'fixed';
+            item.style.zIndex = '1000';
+            item.style.left = rect.left + 'px';
+            item.style.top = rect.top + 'px';
+            document.body.appendChild(item);
+        }
+
+        function onGlobalMove(e) {
+            if (!activeDragItem) return;
+            e.preventDefault(); // Prevent scrolling
+            isDragging = true;
+            const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+            const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+            
+            activeDragItem.style.left = (clientX - dragOffsetX) + 'px';
+            activeDragItem.style.top = (clientY - dragOffsetY) + 'px';
+
+            const target = document.getElementById(dragTargetId);
+            if(target) {
+                const rect = target.getBoundingClientRect();
+                if (clientX > rect.left && clientX < rect.right && clientY > rect.top && clientY < rect.bottom) {
+                    target.classList.add('active');
+                } else {
+                    target.classList.remove('active');
+                }
+            }
+        }
+
+        function onGlobalEnd(e) {
+            if (!activeDragItem) return;
+            const clientX = e.type.includes('mouse') ? e.clientX : e.changedTouches[0].clientX;
+            const clientY = e.type.includes('mouse') ? e.clientY : e.changedTouches[0].clientY;
+            
+            const target = document.getElementById(dragTargetId);
+            if(target) target.classList.remove('active');
+
+            if (isDragging) {
+                let droppedOnTarget = false;
+                if (target) {
+                    const rect = target.getBoundingClientRect();
+                    if (clientX > rect.left && clientX < rect.right && clientY > rect.top && clientY < rect.bottom) {
+                        droppedOnTarget = true;
+                    }
+                }
+                if (droppedOnTarget && dragCallback) {
+                    dragCallback(activeDragItem);
+                } else {
+                    // Reset position
+                    activeDragItem.style.position = 'relative';
+                    activeDragItem.style.left = '0';
+                    activeDragItem.style.top = '0';
+                    activeDragItem.style.zIndex = '10';
+                    document.getElementById(dragContainerId).appendChild(activeDragItem);
+                }
+            } else {
+                // Was just a click
+                activeDragItem.style.position = 'relative';
+                activeDragItem.style.left = '0';
+                activeDragItem.style.top = '0';
+                activeDragItem.style.zIndex = '10';
+                document.getElementById(dragContainerId).appendChild(activeDragItem);
+            }
+            
+            activeDragItem.classList.remove('dragging');
+            activeDragItem = null;
+            setTimeout(() => { isDragging = false; }, 50);
+        }
+
+        // ================= GAME 1: KORZHYN LOGIC =================
+        const g1_data = [
+            { icon: '🍲', label: 'Көже', correct: true },
+            { icon: '🥟', label: 'Бауырсақ', correct: true },
+            { icon: '⛺', label: 'Киіз үй', correct: true },
+            { icon: '🪕', label: 'Домбыра', correct: true },
+            { icon: '🎠', label: 'Алтыбақан', correct: true },
+            { icon: '🌷', label: 'Қызғалдақ', correct: true },
+            { icon: '🥛', label: 'Қымыз', correct: true },
+            { icon: '🥩', label: 'Ет', correct: true },
+            { icon: '🦅', label: 'Бүркіт', correct: true },
+            { icon: '🐫', label: 'Түйе', correct: true },
+            { icon: '📱', label: 'Телефон', correct: false },
+            { icon: '📺', label: 'Теледидар', correct: false },
+            { icon: '🍔', label: 'Бургер', correct: false },
+            { icon: '🚗', label: 'Машина', correct: false },
+            { icon: '✈️', label: 'Ұшақ', correct: false },
+            { icon: '🎮', label: 'Ойын', correct: false },
+            { icon: '💻', label: 'Ноутбук', correct: false },
+            { icon: '🍕', label: 'Пицца', correct: false },
+            { icon: '🎧', label: 'Құлаққап', correct: false },
+            { icon: '🤖', label: 'Робот', correct: false }
+        ];
+        let g1_score = 0;
+        let g1_targetScore = 10; // Number of correct items
+
+        function initGame1() {
+            document.getElementById('g1-end').classList.add('hidden');
+            g1_score = 0;
+            document.getElementById('g1-score').innerText = g1_score;
+            const container = document.getElementById('g1-items');
+            container.innerHTML = '';
+            
+            // Shuffle
+            const items = [...g1_data].sort(() => Math.random() - 0.5);
+            
+            items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'drag-item pop';
+                div.style.animationDelay = (index * 0.05) + 's';
+                div.dataset.correct = item.correct;
+                div.innerHTML = `${item.icon}<div class="item-label">${item.label}</div>`;
+                
+                div.addEventListener('mousedown', (e) => startItemDrag(e, div, 'g1-target', 'g1-items', validateG1));
+                div.addEventListener('touchstart', (e) => startItemDrag(e, div, 'g1-target', 'g1-items', validateG1), {passive: false});
+                div.addEventListener('click', (e) => {
+                    if(!isDragging) validateG1(div);
+                });
+                
+                container.appendChild(div);
+            });
+        }
+
+        function validateG1(item) {
+            const isCorrect = item.dataset.correct === 'true';
+            if (isCorrect) {
+                playSound('success');
+                showFeedback('g1-feedback', 'Дұрыс!', true);
+                item.remove();
+                g1_score++;
+                document.getElementById('g1-score').innerText = g1_score;
+                document.getElementById('g1-target').classList.add('pulse');
+                setTimeout(() => document.getElementById('g1-target').classList.remove('pulse'), 500);
+                
+                if(g1_score >= g1_targetScore) {
+                    setTimeout(() => {
+                        playSound('win');
+                        triggerConfetti();
+                        document.getElementById('g1-end').classList.remove('hidden');
+                    }, 500);
+                }
+            } else {
+                playSound('error');
+                showFeedback('g1-feedback', 'Қайта ойлан!', false);
+                document.getElementById('g1-target').classList.add('shake');
+                setTimeout(() => document.getElementById('g1-target').classList.remove('shake'), 500);
+                item.style.position = 'relative';
+                item.style.left = '0';
+                item.style.top = '0';
+                item.style.zIndex = '10';
+                document.getElementById('g1-items').appendChild(item);
+            }
+        }
+
+
+        // ================= GAME 2: QUIZ LOGIC =================
+        const quizData = [
+            { q: "Наурыз қай мезгілде тойланады?", options: ["Қыс", "Көктем", "Жаз", "Күз"], answer: 1 },
+            { q: "Наурыз көже нені білдіреді?", options: ["Байлық", "Тоқтық, молшылық", "Суық", "Қайғы"], answer: 1 },
+            { q: "Наурызда қандай ұлттық тағам дайындалады?", options: ["Палау", "Борщ", "Наурыз көже", "Манты"], answer: 2 },
+            { q: "Күн мен түн қашан теңеледі?", options: ["22 наурыз", "1 қаңтар", "31 желтоқсан", "1 мамыр"], answer: 0 },
+            { q: "Наурызда үлкендер не береді?", options: ["Ақша", "Бата", "Ойыншық", "Кітап"], answer: 1 },
+            { q: "Қазақтың ұлттық ойыны қайсысы?", options: ["Футбол", "Тоғызқұмалақ", "Шахмат", "Теннис"], answer: 1 },
+            { q: "Алтыбақан деген не?", options: ["Ұлттық әткеншек", "Тамақ", "Киім", "Қару"], answer: 0 },
+            { q: "Киіз үй нені білдіреді?", options: ["Көлік", "Дүкен", "Баспана, шаңырақ", "Мектеп"], answer: 2 },
+            { q: "Наурыз мерекесінің басты мәні қандай?", options: ["Ұйықтау", "Жаңару, татулық", "Соғыс", "Саяхат"], answer: 1 },
+            { q: "Бұл мерекеде адамдар бір-біріне не тілейді?", options: ["Ауырмауды", "Жақсылық, ақ мол болуын", "Ақша", "Ештеңе"], answer: 1 }
+        ];
+        let qIndex = 0;
+        let qScore = 0;
+
+        function initGame2() {
+            document.getElementById('g2-end').classList.add('hidden');
+            qIndex = 0;
+            qScore = 0;
+            document.getElementById('g2-score').innerText = qScore;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if(qIndex >= quizData.length) {
+                endQuiz();
+                return;
+            }
+            const q = quizData[qIndex];
+            document.getElementById('g2-progress').innerText = `${qIndex + 1}/10`;
+            const qBox = document.getElementById('g2-question');
+            qBox.innerText = q.q;
+            qBox.classList.remove('pop');
+            void qBox.offsetWidth; // trigger reflow
+            qBox.classList.add('pop');
+
+            const optBox = document.getElementById('g2-options');
+            optBox.innerHTML = '';
+            
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn fade-in';
+                btn.style.animationDelay = (i * 0.1) + 's';
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(i, btn);
+                optBox.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selected, btn) {
+            // Disable all buttons
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(b => b.onclick = null);
+
+            const correct = quizData[qIndex].answer;
+            if (selected === correct) {
+                btn.classList.add('correct');
+                playSound('success');
+                qScore += 10;
+                document.getElementById('g2-score').innerText = qScore;
+            } else {
+                btn.classList.add('wrong');
+                buttons[correct].classList.add('correct');
+                playSound('error');
+            }
+
+            setTimeout(() => {
+                qIndex++;
+                loadQuestion();
+            }, 1200);
+        }
+
+        function endQuiz() {
+            playSound('win');
+            document.getElementById('g2-end').classList.remove('hidden');
+            const title = document.getElementById('g2-result-title');
+            const text = document.getElementById('g2-result-text');
+            
+            text.innerText = `Сен ${qScore} ұпай жинадың!`;
+            if (qScore >= 90) { title.innerText = "Өте тамаша!"; triggerConfetti(); }
+            else if (qScore >= 70) title.innerText = "Жақсы!";
+            else title.innerText = "Тағы да қайталап көр!";
+        }
+
+
+        // ================= GAME 3: KOZHE LOGIC =================
+        const g3_data = [
+            { icon: '🥩', label: 'Ет', correct: true },
+            { icon: '⚪', label: 'Құрт', correct: true },
+            { icon: '🍚', label: 'Күріш', correct: true },
+            { icon: '🌾', label: 'Арпа', correct: true },
+            { icon: '🥣', label: 'Сұлы', correct: true },
+            { icon: '🟤', label: 'Қарақұмық', correct: true },
+            { icon: '🟡', label: 'Тары', correct: true },
+            { icon: '🌾', label: 'Бидай', correct: true },
+            { icon: '🌽', label: 'Жүгері', correct: true },
+            { icon: '🍜', label: 'Кеспе', correct: true },
+            { icon: '🥛', label: 'Айран', correct: true },
+            { icon: '🧂', label: 'Тұз', correct: true },
+            { icon: '💧', label: 'Су', correct: true },
+            { icon: '🍫', label: 'Шоколад', correct: false },
+            { icon: '🍟', label: 'Фри', correct: false },
+            { icon: '🥤', label: 'Кола', correct: false },
+            { icon: '🍬', label: 'Кәмпит', correct: false },
+            { icon: '🍕', label: 'Пицца', correct: false },
+            { icon: '🍅', label: 'Қызанақ', correct: false },
+            { icon: '🍓', label: 'Құлпынай', correct: false }
+        ];
+        let g3_score = 0;
+
+        function initGame3() {
+            document.getElementById('g3-end').classList.add('hidden');
+            g3_score = 0;
+            document.getElementById('g3-progress').innerText = `0/13`;
+            const container = document.getElementById('g3-items');
+            container.innerHTML = '';
+            
+            const items = [...g3_data].sort(() => Math.random() - 0.5);
+            items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'drag-item pop';
+                div.style.animationDelay = (index * 0.05) + 's';
+                div.dataset.correct = item.correct;
+                div.innerHTML = `${item.icon}<div class="item-label">${item.label}</div>`;
+                
+                div.addEventListener('mousedown', (e) => startItemDrag(e, div, 'g3-target', 'g3-items', validateG3));
+                div.addEventListener('touchstart', (e) => startItemDrag(e, div, 'g3-target', 'g3-items', validateG3), {passive: false});
+                div.addEventListener('click', (e) => {
+                    if(!isDragging) validateG3(div);
+                });
+                
+                container.appendChild(div);
+            });
+        }
+
+        function validateG3(item) {
+            const isCorrect = item.dataset.correct === 'true';
+            if (isCorrect) {
+                playSound('success');
+                showFeedback('g3-feedback', 'Дұрыс қостың!', true);
+                item.remove();
+                g3_score++;
+                document.getElementById('g3-progress').innerText = `${g3_score}/13`;
+                
+                const pot = document.getElementById('g3-target');
+                pot.classList.add('pulse');
+                pot.style.boxShadow = `0 0 ${g3_score * 5}px var(--gold)`;
+                setTimeout(() => pot.classList.remove('pulse'), 500);
+                
+                if(g3_score >= 13) {
+                    setTimeout(() => {
+                        playSound('win');
+                        triggerConfetti();
+                        document.getElementById('g3-end').classList.remove('hidden');
+                    }, 500);
+                }
+            } else {
+                playSound('error');
+                showFeedback('g3-feedback', 'Бұл көжеге жатпайды', false);
+                document.getElementById('g3-target').classList.add('shake');
+                setTimeout(() => document.getElementById('g3-target').classList.remove('shake'), 500);
+                item.style.position = 'relative';
+                item.style.left = '0';
+                item.style.top = '0';
+                item.style.zIndex = '10';
+                document.getElementById('g3-items').appendChild(item);
+            }
+        }
+
+
+        // ================= GAME 4: YURT LOGIC =================
+        const yurtParts = ['kerege', 'uyk', 'shanyrak', 'tuyrlyk', 'esik'];
+        const yurtDescriptions = [
+            "Кереге — киіз үйдің ағаш қабырғасы.",
+            "Уық — шаңырақ пен керегені жалғастырады.",
+            "Шаңырақ — киіз үйдің төбесі, күннің көзі.",
+            "Туырлық — киіз үйді сыртынан жабатын киіз.",
+            "Есік — кіріп-шығатын орын."
+        ];
+        let yStep = 0;
+
+        function initGame4() {
+            document.getElementById('g4-end').classList.add('hidden');
+            yStep = 0;
+            updateYurtUI();
+        }
+
+        function updateYurtUI() {
+            document.getElementById('g4-progress').innerText = `${yStep}/5`;
+            
+            // Reset visuals
+            yurtParts.forEach((part, index) => {
+                const el = document.getElementById(`target-${part}`);
+                if (index < yStep) {
+                    el.classList.remove('hidden');
+                    el.classList.add('placed');
+                } else if (index === yStep) {
+                    el.classList.remove('hidden', 'placed');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+
+            // Update buttons
+            const btns = document.getElementById('g4-tray').children;
+            for(let i=0; i<btns.length; i++) {
+                btns[i].disabled = (i !== yStep);
+                btns[i].style.transform = (i === yStep) ? 'scale(1.1)' : 'scale(1)';
+                btns[i].style.borderColor = (i === yStep) ? 'var(--success)' : 'var(--gold)';
+            }
+        }
+
+        function buildYurt(stepClicked) {
+            if (stepClicked === yStep) {
+                playSound('success');
+                showFeedback('g4-feedback', yurtDescriptions[yStep], true);
+                yStep++;
+                updateYurtUI();
+                
+                if (yStep >= 5) {
+                    setTimeout(() => {
+                        playSound('win');
+                        triggerConfetti();
+                        document.getElementById('g4-end').classList.remove('hidden');
+                    }, 1000);
+                }
+            } else {
+                playSound('error');
+            }
+        }
+
+
+        // ================= GAME 5: SHANYRAK WISHES =================
+        const wishes = ["Береке", "Бірлік", "Қуаныш", "Денсаулық", "Бақыт", "Молшылық", "Татулық", "Жақсылық"];
+        let wCount = 0;
+
+        function initGame5() {
+            document.getElementById('g5-end').classList.add('hidden');
+            wCount = 0;
+            document.getElementById('g5-progress').innerText = `0/8`;
+            
+            // Clear existing wishes from shanyrak
+            const shanyrak = document.getElementById('g5-shanyrak');
+            const oldWishes = shanyrak.querySelectorAll('.wish-word');
+            oldWishes.forEach(w => w.remove());
+            shanyrak.style.transform = 'scale(1)';
+            shanyrak.style.boxShadow = 'inset 0 0 20px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.2)';
+
+            // Generate buttons
+            const tray = document.getElementById('g5-tray');
+            tray.innerHTML = '';
+            wishes.forEach((w, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'wish-btn pop';
+                btn.style.animationDelay = (i * 0.1) + 's';
+                btn.innerText = w;
+                btn.onclick = () => placeWish(w, btn);
+                tray.appendChild(btn);
+            });
+        }
+
+        function placeWish(word, btn) {
+            playSound('success');
+            btn.style.transform = 'scale(0)';
+            setTimeout(() => btn.style.display = 'none', 300);
+
+            const shanyrak = document.getElementById('g5-shanyrak');
+            const el = document.createElement('div');
+            el.className = 'wish-word show';
+            el.innerText = word;
+            
+            // Random position around the center
+            const angle = (wCount / wishes.length) * Math.PI * 2;
+            const radius = 80;
+            el.style.left = `calc(50% + ${Math.cos(angle) * radius}px - 40px)`;
+            el.style.top = `calc(50% + ${Math.sin(angle) * radius}px - 15px)`;
+            
+            shanyrak.appendChild(el);
+            
+            wCount++;
+            document.getElementById('g5-progress').innerText = `${wCount}/8`;
+            
+            shanyrak.style.boxShadow = `inset 0 0 20px rgba(0,0,0,0.5), 0 0 ${wCount*10}px var(--gold)`;
+
+            if(wCount >= wishes.length) {
+                setTimeout(() => {
+                    shanyrak.style.transform = 'scale(1.1) rotate(10deg)';
+                    playSound('win');
+                    triggerConfetti();
+                    document.getElementById('g5-end').classList.remove('hidden');
+                }, 1000);
+            }
+        }
+
+        // Init App
+        window.onload = () => {
+            // Pre-warm audio context on first user interaction
+            document.body.addEventListener('click', () => {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+            }, { once: true });
+            document.body.addEventListener('touchstart', () => {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+            }, { once: true });
+        };
+    </script>
+</body>
+</html>
